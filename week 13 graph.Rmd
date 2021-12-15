@@ -1,0 +1,143 @@
+---
+title: "week 13 graph"
+output: html_document
+---
+```{r}
+x=c(seq(2007,2019))
+
+y<-list()
+  y$canada=c(6480,14336,30219,22721,20468,13224,19321,16823,31762,16660,34249,36475,37296)
+  
+  y$us=c(6623,13316,22911,15514,11931,6274,8609,7003,9589,4441,7206,8795,11332)
+  
+  y$denmark=c(206,499,51,899,4413,2381,260,11215,16536,9360,13918,12199,8061)
+  
+  y$netherlands=c(125,464,460,2187,4703,1187,1203,7213,6587,4716,6205,6477,6439)
+  
+ y$spanish=c(578,9047,15206,15840,13858,13975)
+```
+
+```{r}
+complete_line<-function(x=x,y=y,linesize=1,colour="black"){
+  list(
+    geom_line(
+      mapping=aes(
+      x=x,
+      y=y,
+      size=linesize
+    ),
+    colour=colour
+    )
+  )
+}
+
+library(ggplot2)
+ggplot()+
+  complete_line(
+        x=x,
+        y=y$canada,
+        colour="black"
+              )+
+  complete_line(
+        x=x,
+        y=y$us,
+        colour="blue"
+              )+
+  complete_line(
+        x=x,
+        y=y$denmark,
+        colour="grey"
+              )+
+  complete_line(
+        x=x,
+        y=y$netherlands,
+        colour="red"
+              )+
+  geom_line(
+    mapping=aes(
+      x=c(2014,2015,2016,2017,2018,2019),
+      y=y$spanish
+    ),
+    colour="darkgreen",
+    size=4 
+  )+
+  scale_x_continuous(
+    name="年",
+    breaks=c(seq(2007,2019)),
+    labels=c(seq(2007,2019)),
+  )+
+  scale_y_continuous(
+    name="重量(公噸)",
+    breaks=c(0,5000,10000,15000,20000,25000,30000,35000,40000,45000,50000),
+    labels=c("0","5k","10k","15k","20k","25k","30k","35k","40k","45k","50k")
+  )+
+  theme(
+    axis.text.x = element_text(
+      size=8
+    ),
+    axis.text.y=element_text(
+      size=8
+    ),
+  )+
+  labs(
+    title="台灣歷年五大豬肉進口國變化",
+    caption="來源:行政院農業委員會"
+  )+
+  theme(
+    plot.title=element_text(size=15,colour="black")
+    )+
+  geom_text(mapping=aes(
+    x=2011,
+    y=25000
+  ),
+  label="加拿大",
+  colour="black",
+  size=5
+  )+
+  geom_text(mapping=aes(
+    x=2009,
+    y=12000
+  ),
+  label="美國",
+  colour="blue",
+  size=5
+  )+
+  geom_text(mapping=aes(
+    x=2013,
+    y=13000
+  ),
+  label="丹麥",
+  colour="grey",
+  size=5,
+  nudge_x = 0.5
+  )+
+  geom_text(mapping=aes(
+    x=2017,
+    y=3000
+  ),
+  label="荷蘭",
+  colour="red",
+  size=5
+  )+
+  geom_text(mapping=aes(
+    x=2018,
+    y=18000
+  ),
+  label="西班牙",
+  colour="darkgreen",
+  size=5
+  )
+```
+
+```{r}
+ggplot()+
+  geom_line(mapping=aes(
+    x=c(1,2,3),
+    y=c(2,4,6)
+  ),
+  size=2
+  )
+```
+
+
+
